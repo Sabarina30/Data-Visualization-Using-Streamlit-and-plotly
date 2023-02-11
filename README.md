@@ -1,11 +1,13 @@
 # Data-Visualization-Using-Streamlit-and-plotly
-###Python Cloning in Pycharm
-     ######From the main menu, choose Git | Clone.
-     ######In the Version control drop-down, select Git.
-     ######Specify the URL of the remote repository that you want to clone.
-     ######In the Directory field, enter the path to the folder where your local repository will be created.
-     ######Click Clone
- ###Readjsonfile 
+Python Cloning in Pycharm.
+ From the main menu, choose Git | Clone.
+ In the Version control drop-down, select Git.
+ Specify the URL of the remote repository that you want to clone.
+ In the Directory field, enter the path to the folder where your local repository will be created.
+ Click Clone.
+ 
+ 
+ ##Readjsonfile 
             
           '''import json
               with open('filename.json', 'r') as f:
@@ -15,7 +17,9 @@
                  # use format "entry['myfield']" to access named fields
                      print(entry)'''
   
-###MYSQL-PYTHON Connector
+##MYSQL-PYTHON Connector
+
+
 The recommended way to install Connector/Python is via pip.
                      ''' pip install mysql-connector-python'''
                         ''' import mysql.connector 
@@ -31,7 +35,10 @@ The recommended way to install Connector/Python is via pip.
                                Cursor.execute("CREATE DATABASE databasename")
                                # Close connection
                                Database.close()'''
-####creating tables in sql and inserting data from json file
+                               
+                               
+                               
+###creating tables in sql and inserting data from json file
                             '''DataBase = mysql.connector.connect(
                                  host="localhost",
                                  username="username",
