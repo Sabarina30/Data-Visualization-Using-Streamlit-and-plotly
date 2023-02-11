@@ -50,23 +50,26 @@ The recommended way to install Connector/Python is via pip.
                                   Cursor = DataBase.cursor()'''
  
      ### Creating  table
-                 # creating table for transactions data of first quarter q1 for the year 2018
-                 # similarly we create tables for transactions data of four quarters q1,q2,q3,q4 for the years 2019,2020,2021,2022
+     
+                 creating table for transactions data of first quarter q1 for the year 2018.
+                 similarly we create tables for transactions data of four quarters q1,q2,q3,q4 for the years 2019,2020,2021,2022.
+                 
+                 
                          '''TableName ="CREATE TABLE transactions_jfmq18
                                            (
                                               Name VARCHAR(255),
                                               Type VARCHAR(255),
                                               Count int,
                                               Amount Float
-                                            );"  
- 
+                                            );"    
                                  Cursor.execute(TableName)
                                  print("transactions_jfm18 is Created in the Database")
-                                 return
-                                  # Calling CreateTable function
+                                 retur
                                  CreateTable()'''
    
-   ####creating table for users data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
+   ####creating table for users data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
+   
+   
    
        '''TableName ="CREATE TABLE users_jfmq18
                 (
@@ -76,7 +79,9 @@ The recommended way to install Connector/Python is via pip.
                   );"'''
    
    
-   ####creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
+   ####creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
+   
+   
          '''TableName ="CREATE TABLE state_jfmq18
                 (
                     Name VARCHAR(255),
@@ -85,13 +90,21 @@ The recommended way to install Connector/Python is via pip.
                     Amount Float
                   );"'''
    
-    ###creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
+    ###creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
+    
+    
               '''TableName ="CREATE TABLE users_top_jfmq18
                 (
                     Name VARCHAR(255),
                     registered_users int,
                   );"'''  
-     ####inserting data from df to database
+                  
+                  
+                  
+     ####inserting data from df to database.
+     
+     
+     
                     '''sql_insert = "INSERT INTO users_top_jfm18(Name,registered_users) VALUES (%s, %s)"
                        val = [x for x in df1.agg(tuple, 1)]
                        print(val)
@@ -101,7 +114,11 @@ The recommended way to install Connector/Python is via pip.
                       
                   
    ##USING STREAMLIT
-   with streamlit the structured data are visualized using dropdowns and charts
+   
+   
+   with streamlit the structured data are visualized using dropdowns and charts.
+   
+   
                '''st.title("Phone pe pulse ")
                   st.header("INDIA")
                   selection = st.sidebar.selectbox("details?", ("Transactions", 'Users'))
@@ -110,15 +127,26 @@ The recommended way to install Connector/Python is via pip.
                   "Choose a year"("2018", "2019", "2020", "2021", "2022"))
                    year_quarter = st.radio("year_quarter: ", ('Q1(Jan-Mar)', 'Q2(Apr-Jun)', "Q3(Jul-Sep)", "Q4(Oct-Dec)"))'''
     
-   ##Fetching data from database
+   ##Fetching data from database.
+   
+   
                  '''if selection == "Transactions":
                        if year_select == '2018':
                           if year_quarter == 'Q1(Jan-Mar)':
                              Cursor.execute("SELECT * FROM Transactions_JFM18")
                              result = Cursor.fetchall()
                              df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])'''
+                             
+                             
+                             
    ##visualization using plotly
+   
+   
+   
                   '''import plotly.express as px'''
+                  
+                  
+                  
                  '''' def users_display(df1):
                            st.title("Users of Different Brands")
                                fig = px.scatter(df1, x="Percentage", y="Count", size="Count", color="Percentage", hover_name="Name",
@@ -126,6 +154,8 @@ The recommended way to install Connector/Python is via pip.
                                      size_max=60,
                                       )
                        st.plotly_chart(fig, theme=None, use_container_width=True)'''
+                       
+                       
           ###### scatter plot is used to display different brand users of phone pe
           
 
