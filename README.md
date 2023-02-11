@@ -28,10 +28,10 @@ Database = mysql.connector.connect(
     user="your username",
     password="your password")
 
-# Get a cursor
+####Get a cursor
 Cursor = Database.cursor()
 Cursor.execute("CREATE DATABASE databasename")
-# Close connection
+##### Close connection
 Database.close()
 '''
 ###creating tables in sql and inserting data from json file
@@ -98,32 +98,31 @@ CreateTable()'''
                   
    ##USING STREAMLIT
    with streamlit the structured data are visualized using dropdowns and charts
-   '''st.title("Phone pe pulse ")
-      st.header("INDIA")
-      selection = st.sidebar.selectbox("details?", ("Transactions", 'Users'))
-      with st.sidebar:
-      year_select = st.selectbox(
-      "Choose a year",
-        ("2018", "2019", "2020", "2021", "2022"))
-    year_quarter = st.radio("year_quarter: ", ('Q1(Jan-Mar)', 'Q2(Apr-Jun)', "Q3(Jul-Sep)", "Q4(Oct-Dec)"))'''
+               '''st.title("Phone pe pulse ")
+                  st.header("INDIA")
+                  selection = st.sidebar.selectbox("details?", ("Transactions", 'Users'))
+                  with st.sidebar:
+                  year_select = st.selectbox(
+                  "Choose a year"("2018", "2019", "2020", "2021", "2022"))
+                   year_quarter = st.radio("year_quarter: ", ('Q1(Jan-Mar)', 'Q2(Apr-Jun)', "Q3(Jul-Sep)", "Q4(Oct-Dec)"))'''
     
    ##Fetching data from database
-    '''if selection == "Transactions":
-          if year_select == '2018':
-             if year_quarter == 'Q1(Jan-Mar)':
-                Cursor.execute("SELECT * FROM Transactions_JFM18")
-                result = Cursor.fetchall()
-                df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])'''
-     ##visualization using plotly
-     '''import plotly.express as px'''
-    '''' def users_display(df1):
-         st.title("Users of Different Brands")
-         fig = px.scatter(df1, x="Percentage", y="Count", size="Count", color="Percentage", hover_name="Name",
-                     log_x=True,
-                     size_max=60,
-                     )
-          st.plotly_chart(fig, theme=None, use_container_width=True)'''
-          # scatter plot is used to display different brand users of phone pe
+                 '''if selection == "Transactions":
+                       if year_select == '2018':
+                          if year_quarter == 'Q1(Jan-Mar)':
+                             Cursor.execute("SELECT * FROM Transactions_JFM18")
+                             result = Cursor.fetchall()
+                             df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])'''
+   ##visualization using plotly
+                  '''import plotly.express as px'''
+                 '''' def users_display(df1):
+                           st.title("Users of Different Brands")
+                               fig = px.scatter(df1, x="Percentage", y="Count", size="Count", color="Percentage", hover_name="Name",
+                                     log_x=True,
+                                     size_max=60,
+                                      )
+                       st.plotly_chart(fig, theme=None, use_container_width=True)'''
+          ###### scatter plot is used to display different brand users of phone pe
           
 
    
