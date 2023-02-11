@@ -1,69 +1,65 @@
 # Data-Visualization-Using-Streamlit-and-plotly
 ###Python Cloning in Pycharm
-     From the main menu, choose Git | Clone.
-     In the Version control drop-down, select Git.
-     Specify the URL of the remote repository that you want to clone.
-     In the Directory field, enter the path to the folder where your local repository will be created.
-     Click Clone
+     ######From the main menu, choose Git | Clone.
+     ######In the Version control drop-down, select Git.
+     ######Specify the URL of the remote repository that you want to clone.
+     ######In the Directory field, enter the path to the folder where your local repository will be created.
+     ######Click Clone
  ###Readjsonfile 
-'''python
-import json
-with open('filename.json', 'r') as f:
-data = json.load(f)
-    # assuming entry was a json array
-    for entry in data:
-        # use format "entry['myfield']" to access named fields
-        print(entry)
-  '''python
+            
+          '''import json
+              with open('filename.json', 'r') as f:
+                data = json.load(f)
+                  # assuming entry was a json array
+                for entry in data:
+                 # use format "entry['myfield']" to access named fields
+                     print(entry)'''
+  
 ###MYSQL-PYTHON Connector
 The recommended way to install Connector/Python is via pip.
- ''' pip install mysql-connector-python'''
- 
-'''
- import mysql.connector 
+                     ''' pip install mysql-connector-python'''
+                        ''' import mysql.connector 
 
-# Connect to sql
-Database = mysql.connector.connect(
-    host="local host",
-    user="your username",
-    password="your password")
+                            # Connect to sql
+                             Database = mysql.connector.connect(
+                             host="local host",
+                             user="your username",
+                              password="your password")
 
-####Get a cursor
-Cursor = Database.cursor()
-Cursor.execute("CREATE DATABASE databasename")
-##### Close connection
-Database.close()
-'''
-###creating tables in sql and inserting data from json file
-'''DataBase = mysql.connector.connect(
-    host="localhost",
-    username="username",
-    password="yourpassword",
-    database="phone_pe_pulse"
-)
-   Cursor = Database.cursor()
-    # Cursor to the database
-     Cursor = DataBase.cursor()
+                               #Get a cursor
+                               Cursor = Database.cursor()
+                               Cursor.execute("CREATE DATABASE databasename")
+                               # Close connection
+                               Database.close()'''
+####creating tables in sql and inserting data from json file
+                            '''DataBase = mysql.connector.connect(
+                                 host="localhost",
+                                 username="username",
+                                 password="yourpassword",
+                                 database="phone_pe_pulse"
+                                   )
+                                 Cursor = Database.cursor()
+                                # Cursor to the database
+                                  Cursor = DataBase.cursor()'''
  
-     # Query for Creating the table
-     # creating table for transactions data of first quarter q1 for the year 2018
-     # similarly we create tables for transactions data of four quarters q1,q2,q3,q4 for the years 2019,2020,2021,2022
-     TableName ="CREATE TABLE transactions_jfmq18
-                (
-                    Name VARCHAR(255),
-                    Type VARCHAR(255),
-                    Count int,
-                    Amount Float
-                  );"
+     ### Creating  table
+                 # creating table for transactions data of first quarter q1 for the year 2018
+                 # similarly we create tables for transactions data of four quarters q1,q2,q3,q4 for the years 2019,2020,2021,2022
+                         '''TableName ="CREATE TABLE transactions_jfmq18
+                                           (
+                                              Name VARCHAR(255),
+                                              Type VARCHAR(255),
+                                              Count int,
+                                              Amount Float
+                                            );"  
  
-     Cursor.execute(TableName)
-     print("transactions_jfm18 is Created in the Database")
-     return
- 
-# Calling CreateTable function
-CreateTable()'''
+                                 Cursor.execute(TableName)
+                                 print("transactions_jfm18 is Created in the Database")
+                                 return
+                                  # Calling CreateTable function
+                                 CreateTable()'''
    
-   #creating table for users data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
+   ####creating table for users data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
    
        '''TableName ="CREATE TABLE users_jfmq18
                 (
@@ -73,7 +69,7 @@ CreateTable()'''
                   );"'''
    
    
-   #creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
+   ####creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
          '''TableName ="CREATE TABLE state_jfmq18
                 (
                     Name VARCHAR(255),
@@ -82,19 +78,20 @@ CreateTable()'''
                     Amount Float
                   );"'''
    
-    #creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
+    ###creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022
               '''TableName ="CREATE TABLE users_top_jfmq18
                 (
                     Name VARCHAR(255),
                     registered_users int,
                   );"'''  
-     #inserting data from df to database
-     '''sql_insert = "INSERT INTO users_top_jfm18(Name,registered_users) VALUES (%s, %s)"
-     val = [x for x in df1.agg(tuple, 1)]
-     print(val)
-     Cursor.executemany(sql_insert, val)
-     DataBase.commit()
-     print(Cursor.rowcount, "details inserted")'''
+     ####inserting data from df to database
+                    '''sql_insert = "INSERT INTO users_top_jfm18(Name,registered_users) VALUES (%s, %s)"
+                       val = [x for x in df1.agg(tuple, 1)]
+                       print(val)
+                       Cursor.executemany(sql_insert, val)
+                      DataBase.commit()
+                      print(Cursor.rowcount, "details inserted")'''
+                      
                   
    ##USING STREAMLIT
    with streamlit the structured data are visualized using dropdowns and charts
