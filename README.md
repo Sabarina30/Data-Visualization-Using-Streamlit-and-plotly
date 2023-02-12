@@ -5,9 +5,7 @@ Python Cloning in Pycharm.
  Specify the URL of the remote repository that you want to clone.
  In the Directory field, enter the path to the folder where your local repository will be created.
  Click Clone.
- 
- 
- ##Readjsonfile 
+ Readjsonfile 
             
           '''import json
               with open('filename.json', 'r') as f:
@@ -17,10 +15,11 @@ Python Cloning in Pycharm.
                  # use format "entry['myfield']" to access named fields
                      print(entry)'''
   
-##MYSQL-PYTHON Connector
+MYSQL-PYTHON Connector
 
 
 The recommended way to install Connector/Python is via pip.
+
                      ''' pip install mysql-connector-python'''
                         ''' import mysql.connector 
 
@@ -38,7 +37,7 @@ The recommended way to install Connector/Python is via pip.
                                
                                
                                
-###creating tables in sql and inserting data from json file
+Creating tables in sql and inserting data from json file
                             '''DataBase = mysql.connector.connect(
                                  host="localhost",
                                  username="username",
@@ -49,10 +48,10 @@ The recommended way to install Connector/Python is via pip.
                                 # Cursor to the database
                                   Cursor = DataBase.cursor()'''
  
-     ### Creating  table
+  Creating  table
      
-                 creating table for transactions data of first quarter q1 for the year 2018.
-                 similarly we create tables for transactions data of four quarters q1,q2,q3,q4 for the years 2019,2020,2021,2022.
+  creating table for transactions data of first quarter q1 for the year 2018.
+  similarly we create tables for transactions data of four quarters q1,q2,q3,q4 for the years 2019,2020,2021,2022.
                  
                  
                          '''TableName ="CREATE TABLE transactions_jfmq18
@@ -67,7 +66,7 @@ The recommended way to install Connector/Python is via pip.
                                  retur
                                  CreateTable()'''
    
-   ####creating table for users data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
+  Creating table for users data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
    
    
    
@@ -79,7 +78,7 @@ The recommended way to install Connector/Python is via pip.
                   );"'''
    
    
-   ####creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
+  Creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
    
    
          '''TableName ="CREATE TABLE state_jfmq18
@@ -90,7 +89,7 @@ The recommended way to install Connector/Python is via pip.
                     Amount Float
                   );"'''
    
-    ###creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
+  Creating table for top 10 states of transactions data of four quarters q1,q2,q3,q4 for the years 2018,2019,2020,2021,2022.
     
     
               '''TableName ="CREATE TABLE users_top_jfmq18
@@ -101,7 +100,7 @@ The recommended way to install Connector/Python is via pip.
                   
                   
                   
-     ####inserting data from df to database.
+   Inserting data from df to database.
      
      
      
@@ -113,7 +112,7 @@ The recommended way to install Connector/Python is via pip.
                       print(Cursor.rowcount, "details inserted")'''
                       
                   
-   ##USING STREAMLIT
+   USING STREAMLIT
    
    
    with streamlit the structured data are visualized using dropdowns and charts.
