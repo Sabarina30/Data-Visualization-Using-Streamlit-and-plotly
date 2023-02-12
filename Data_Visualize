@@ -1,0 +1,564 @@
+import json
+import pandas as pd
+import mysql.connector as SQLC
+import csv
+import streamlit as st
+import plotly.express as px
+
+# importing necessary modules
+
+# function to display categories of transactions data
+def display(df_new1):
+    Total = st.selectbox("Total Transactions:", ["Total", "Peer-to-peer payments", "Recharge & bill payments",
+
+                                                 "Merchant payments", "Financial Services", "Others"])
+    if Total == "Peer-to-peer payments":
+        st.metric("Peer-to-peer payments", df_new1.iloc[0, 2])
+    if Total == "Recharge & bill payments":
+        st.metric("Rupees", df_new1.iloc[1, 2])
+    if Total == "Merchant payments":
+        st.metric("Rupees", df_new1.iloc[2, 2])
+    if Total == "Financial Services":
+        st.metric("Rupees", df_new1.iloc[3, 2])
+    if Total == "Others":
+        st.metric("Rupees", df_new1.iloc[4, 2])
+    if Total == "Total":
+        st.metric("Transactions in Rupees", pd.Series(df_new1['count'].sum(), index=['count']))
+
+
+# function to display bar chart for top 10 transactions states
+def state_display(state_df1):
+    if st.subheader("Top 10 states"):
+        st.bar_chart(state_df1, x='state', y='amount')
+
+
+# function to display  to users data
+def users_display(df1):
+    st.subheader("Users of Different Brands")
+    fig = px.scatter(df1, x="Percentage", y="Count", size="Count", color="Percentage", hover_name="Name",
+                     log_x=True,
+                     size_max=60,
+                     )
+    st.plotly_chart(fig, theme=None, use_container_width=True)
+
+
+# function to display top 10 users data
+def users_top_display(dff1):
+    st.subheader("Top 10 States of Users")
+    st.bar_chart(dff1, x='Name', y="registered_users")
+
+
+# connecting Mysql database
+DataBase = SQLC.connect(
+    host="localhost",
+    username="Nancy",
+    password="Nancy@123",
+    database="phone_pe_pulse"
+)
+Cursor = DataBase.cursor()
+
+st.title("Phone pe pulse ")
+st.header("INDIA")
+# creating App with side_bar
+selection = st.sidebar.selectbox("details?", ("Transactions", 'Users'))
+with st.sidebar:
+    year_select = st.selectbox(
+        "Choose a year",
+        ("2018", "2019", "2020", "2021", "2022"))
+    year_quarter = st.radio("year_quarter: ", ('Q1(Jan-Mar)', 'Q2(Apr-Jun)', "Q3(Jul-Sep)", "Q4(Oct-Dec)"))
+# selecting year and year quarter to display the result
+if selection == "Transactions":
+    if year_select == '2018':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM Transactions_JFM18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JFM18")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM Transactions_AMJ18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_AMJ18")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM Transactions_JAS18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JAS18")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM Transactions_OND18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_OND18")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+    if year_select == '2019':
+
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM Transactions_JFM19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JFM19")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM Transactions_AMJ19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_AMJ19")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM Transactions_JAS19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JAS19")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM Transactions_JFM18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_OND19")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+    if year_select == '2020':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM Transactions_JFM20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JFM20")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM Transactions_AMJ20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_AMJ20")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM Transactions_JAS20")
+            result = Cursor.fetchall()
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            # fetching data from sql tables dynamically for transactions
+            display(df)
+            Cursor.execute("SELECT * FROM State_JAS20")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM Transactions_OND20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JFM18")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+    if year_select == '2021':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM Transactions_JFM21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JFM21")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM Transactions_AMJ21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_AMJ21")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM Transactions_JAS21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JAS21")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM Transactions_OND21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_OND21")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+    if year_select == '2022':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM Transactions_JFM22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JFM22")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM Transactions_AMJ22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_AMJ22")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM Transactions_JAS22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_JAS22")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM Transactions_OND22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['name', 'type', 'count', 'amount'])
+            display(df)
+            Cursor.execute("SELECT * FROM State_OND22")
+            result = Cursor.fetchall()
+            # fetching top 10 states of transactions data  from sql table dynamically
+            state_df = pd.DataFrame(result, columns=['state', 'type', 'count', 'amount'])
+            state_display(state_df)
+
+if selection == "Users":
+
+    if year_select == '2018':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM users_JFM18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for users data
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JFM18")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM users_AMJ18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_AMJ18")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM users_JAS18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JAS18")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM users_OND18")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_OND18")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+    if year_select == '2019':
+
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM users_JFM19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JFM19")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM users_AMJ19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_AMJ19")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM users_JAS19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JAS19")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM users_OND19")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_OND19")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+    if year_select == '2020':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM users_JFM20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JFM20")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM users_AMJ20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_AMJ20")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM users_JAS20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JAS20")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM users_OND20")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JFM18")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+    if year_select == '2021':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM users_JFM21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JFM21")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM users_AMJ21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_AMJ21")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM users_JAS21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JAS21")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM users_OND21")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_OND21")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+    if year_select == '2022':
+        if year_quarter == 'Q1(Jan-Mar)':
+            Cursor.execute("SELECT * FROM users_JFM22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JFM22")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q2(Apr-Jun)':
+            Cursor.execute("SELECT * FROM users_AMJ22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_AMJ22")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q3(Jul-Sep)':
+            Cursor.execute("SELECT * FROM users_JAS22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_JAS22")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+
+        if year_quarter == 'Q4(Oct-Dec)':
+            Cursor.execute("SELECT * FROM users_OND22")
+            result = Cursor.fetchall()
+            # fetching data from sql tables dynamically for transactions
+            df = pd.DataFrame(result, columns=['Name', 'Count', 'Percentage'])
+            users_display(df)
+            Cursor.execute("SELECT * FROM users_top_OND22")
+            result1 = Cursor.fetchall()
+            # fetching top 10 states of users data  from sql table dynamically
+            state_top_df = pd.DataFrame(result1, columns=['Name', 'registered_users'])
+            users_top_display(state_top_df)
+            DataBase.close()
